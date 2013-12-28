@@ -1,0 +1,22 @@
+---
+layout: default
+title: git常用的几个操作
+---
+
+　　<h2>{{ page.title }}</h2>
+     <p>今天晚上和下午都在学git操作，本来很简单，但我却搞了很久，（再一次发现自己愚本的本质 T_T）
+     1.那么，如何上传代码呢？
+     首先在修改了某些本地文件之后
+     git diff(这一步要不要呢？)
+     git add (把修改后的文件复制到缓存，也就是.git隐藏文件夹下)
+     git commit -m "版本标识或者版本号" （少了版本标示是没法上传到代码库的！！这个很关键，我一个晚上就错在这里）
+     接着
+     git push 就行了 
+     2.删除文件 (假设要删除根目录下的hello文件夹里面的全部文件)
+     git rm ./hello/* -r
+     然后
+     git commit -a -m “版本号”
+     再push就行了
+     git push 
+      </p>
+      <p>{{ page.date | date_to_string }}</p>
