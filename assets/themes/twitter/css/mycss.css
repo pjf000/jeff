@@ -1,0 +1,9 @@
+/* LAYOUT STYLES */
+body {
+  font-size: 15px;
+  line-height: 1.5; 
+  background: #fafafa url(../img/body_bg.jpg) 0 0 repeat;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  color: #666;
+}
