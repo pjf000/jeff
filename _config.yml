@@ -3,21 +3,21 @@ pygments:         true
 paginate:         4
 
 title:            The One Theme
-url:              http://pizn.github.com/blogTheme
+url:              http://www.pengjf.com
 feed:             /atom.xml
 author:
-    name:         PIZn
-    email:        pizner@gmail.com
-    description:  "The one theme is another web theme design by PIZn."
+    name:         Jeff
+    email:        pjf.sysu@gmail.com
+    description:  "The theme of this blog is designed by PIZn redesigned by me."
 
-about:            "I am PIZn.I love all kinds of design, attention to the Internet dynamic, dedicated web front development, learn UI and UED."
+about:            "I am Jeff. This is my blog"
 follow:
-    email:        pizner@gmail.com
-    github:       https://github.com/pizn
-    twitter:      http://www.twitter.com/piznlin
-    google:       https://plus.google.com/107483619032085919305
-    facebook:     http://facebook.com/zhanxinlin
-description:      Just another blog theme -- the One
+    email:        pjf.sysu@gmail.com
+    github:       https://github.com/pjf000
+    twitter:      http://www.twitter.com
+    google:       https://plus.google.com/
+    facebook:     http://facebook.com/
+description:      Jeff's blog, designed base on jekyll+github  
 
 indexContent:     true
 imageLink:        http://www.pizn.net/static/images/20121109Monutain.jpg
@@ -31,5 +31,5 @@ theme:            default
 
 disqus:           piznblog
 
-copyright:        Copyright © 2011-2012 PIZn All rights reserved.
+copyright:        Copyright © 2013-2014 Jeff Peng All rights reserved.
 test:             ok
