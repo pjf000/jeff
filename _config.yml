@@ -2,7 +2,7 @@ markdown:         rdiscount
 pygments:         true
 paginate:         4
 
-title:            The One Theme
+title:            Jeff Peng
 url:              http://www.pengjf.com
 feed:             /atom.xml
 author:
@@ -24,12 +24,12 @@ imageLink:        http://www.pizn.net/static/images/20121109Monutain.jpg
 
 
 style:            /css/style.css
-blogName:         theOne 
-blogDesc:         Just another theme
+blogName:         Jeff's Blog 
+blogDesc:         Just copy from bizn
 favicon:          /favicon.ico
 theme:            default
 
-disqus:           piznblog
+disqus:           jeffblog
 
 copyright:        Copyright © 2013-2014 Jeff Peng All rights reserved.
 test:             ok
