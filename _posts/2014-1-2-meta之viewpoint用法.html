@@ -1,0 +1,24 @@
+---
+layout: post
+title: meta之viewpoint用法
+description: 现在网页设计大都要考虑到在移动端打开时的排版效果，在header里使用meta viewpoint属性设置可以自适应哦，下面就关于viewpoint的属性解释一下
+keyword: meta,viewpoint,前端开发，HTML
+---
+<p>整理硬盘中几个月来整的小东西，移动网页开发涉及到 viewport，随意一篇，分享一下。
+常用的 viewport meta 如下：
+</p>
+<code>
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+</code>
+<p>1、width : 控制viewport的大小，可以指定一个值，如600， 或者特殊的值，如device-width为设备的宽度（单位为缩放为100%的CSS的像素）
+
+2、height : 和width相对应，指定高度
+
+3、initial-scale : 初始缩放比例，页面第一次加载时的缩放比例
+
+4、maximum-scale : 允许用户缩放到的最大比例，范围从0到10.0
+
+5、minimum-scale : 允许用户缩放到的最小比例，范围从0到10.0
+
+6、user-scalable : 用户是否可以手动缩放，值可以是：①yes、 true允许用户缩放；②no、false不允许用户缩放
+<p/>
