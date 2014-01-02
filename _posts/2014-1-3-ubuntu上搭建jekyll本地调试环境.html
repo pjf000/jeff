@@ -1,0 +1,69 @@
+---
+layout: post
+title: ubuntu上搭建jekyll本地调试环境
+description: 基于jekyll和github搭建的博客完全可以在线编辑与调试，但是每次改完代码要么从本地push提交修改就是在网页上编辑再保存，显得非常麻烦!
+               所以搭建本地调试环境显得很有必要。下面就详细介绍jekyll环境搭建的流程。
+keyword: jekyll,本地调试，搭建调试环境，github
+---
+<p><span>博主电脑操作系统：ubuntu 12.04</span></p>
+<p>第一步：<br/>
+<br/>安装ruby1.9.1-dev:<br/>
+<code>$ sudo apt-get install ruby1.9.1-dev</code>
+Red Hat / CentOS / Fedora systems 需要使用如下命令:<br/>
+<code>$ sudo yum install ruby-devel</code>
+安装jekyll:<br/>
+<code>$ sudo gem install jekyll</code>
+
+</p>
+<pre>
+第二步：
+
+安装RDiscount（一种模板）:
+$ sudo gem install rdiscount
+
+安装Pygments语法高亮(可选):
+On Ubuntu and Debian:
+
+$ sudo apt-get install python-pygments
+
+On OS X Leopard, Snow Leopard
+
+$ sudo easy_install Pygments
+
+Alternatively on OS X with MacPorts:
+
+$ sudo port install python25 py25-pygments
+
+On Archlinux
+
+$ sudo pacman -S python-pygments
+
+On Fedora and CentOS:
+
+$ sudo yum install python-pygments
+</pre>
+<pre>
+第三步：
+提示：在搭建本地调试环境之前，请确保已经有了github帐号，并创建一个代码库repository,
+然后超级终端里新建一个目录，
+$jekyll new [你的目录路径]  //打开目录你会发现有几个自动生成的文件
+$jekyll serve  
+// 成功的话会有如下提示，浏览器打开“0.0.0.0:4000”就可已看到本地生成的网页了
+//      Generating... done.
+//   Server address: http://0.0.0.0:4000
+// Server running... press ctrl-c to stop.
+
+到此，环境配置结束。
+
+当你编辑好代码之后想上传到github，那么：
+进入项目目录输入以下命令：
+$git init   //初始化git工程
+$git checkout --orphan gh-pages //建一个gh-pages分支：
+$git add .
+$git commit -m "v1.0"
+$git remote add https://username[你的github用户名]@github.com/username/your_repository[代码库名称]
+$git push
+输入密码，ok！打开http://username.gihub.com/your_repository 就可以看到你的博客了
+
+写的罗嗦，有不对之处敬请指教交流。
+</pre>
