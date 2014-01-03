@@ -413,7 +413,7 @@ h1, h2, h3, h4, h5, h6{ font-weight: 500; color:#333; }
 .post em { font-weight: 700; }
 .post .clearLeft { margin-left: -40px; }
 .post img, .post audio, .post iframe, .post audio, .post canvas, .post video { max-width: 720px; }
-.post .post-title { margin-left: -40px; margin-bottom: 10px; padding: 4px 0 4px 40px; background: ##C2FFC2;  border-top: 1px solid #e8e8e8; border-bottom: 1px solid #e8e8e8;   }
+.post .post-title { margin-left: -40px; margin-bottom: 10px; padding: 4px 0 4px 40px; background: #C2FFC2;  border-top: 1px solid #e8e8e8; border-bottom: 1px solid #e8e8e8;   }
 .post .post-title a { border-bottom: none; }
 .post .post-title a:hover { border-bottom: 1px dotted #343434; }
 .fork-me { position: fixed; right: 0; top: 0; z-index: 999; }
