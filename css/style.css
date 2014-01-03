@@ -373,7 +373,7 @@ padding: 1px 20px;
 width: 100px;
 display: block;
 margin-left: 70px;
-}}
+}
 #nav a:hover, #nav a.action { text-decoration: none;color: #000; border-color: #000;}
 #nav a:hover { -moz-transition:  border-color .3s linear, color .3s linear; -webkit-transition: border-color .3s linear, color .3s linear; transition: border-color .3s linear, color .3s linear; }
 #contain { margin-left: 320px; border-left: 1px solid #d8d8d8; min-height: 900px; position: relative; min-width: 658px; z-index: 100;}
