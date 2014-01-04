@@ -16,6 +16,7 @@ date: Home
 {% if paginator.total_pages > 1 %}
     <nav id="pagination" class="fn-clear">
         <ul class="pagination">
+			<li>第:</li>
             {% for page in (1..paginator.total_pages) %}
                 {% if page == paginator.page %}
                     <li class="current"><a href="javascript:void(0);">{{ page }}</a></li>
@@ -23,6 +24,7 @@ date: Home
                     <li><a href="{{ site.url }}/{%if page > 1 %}page{{ page }}/{% endif %}">{{ page }}</a></li>
                 {% endif %}
             {% endfor %}
+            <li>页</li>
         </ul>
     </nav>
 {% endif %}	

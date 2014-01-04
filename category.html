@@ -1,0 +1,19 @@
+---
+layout: default
+title: Category
+date: All Categories are here.
+---
+<article class="post">
+{% for tag in site.tags %}
+  <h2 id="{{ tag[0] }}" class="vlist">{{ tag[0] }}</h2>
+  <ul>
+    {% for post in tag[1] %}
+      <li style="padding: 2px">
+        <span>{{ post.date | date:"%d %b %Y" }}</span> &nbsp;
+        <a href="{{ post.url }}">{{ post.title }}</a>
+      </li>
+    {% endfor %}
+    <hr style="display:dotted;"/>
+  </ul>
+{% endfor %}
+</article>
