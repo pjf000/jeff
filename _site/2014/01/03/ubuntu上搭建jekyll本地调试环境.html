@@ -13,7 +13,7 @@
     **
     -->
     <meta charset="utf-8" />
-    <title>About me | Jeff Peng</title>
+    <title>ubuntu上搭建jekyll本地调试环境 | Jeff Peng</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Jekyll" />
     <meta name="author" content="Jeff" />
@@ -45,28 +45,82 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <span>About me</span>
+            <span>Fri Jan 03 00:00:00 +0800 2014</span>
         </header>
 		<article class="post">
-<div class="self_intr">
-	<p>
-    hello，my name is Jeff Peng. I do web programming base on LAMP 
-    and I enjoy it. Welcome to share all about web programming with
-    each other.
-     </p>
-     <p>I am Jeff. This is my blog</p>
-</div>
-<div class="my-header-img"><img src="http://ww2.sinaimg.cn/small/6b60bc39jw9e022err57tj.jpg" width="120px" height="120px;"></div>
+    <h1 class="post-title">ubuntu上搭建jekyll本地调试环境</h1>
+    <p><span>博主电脑操作系统：ubuntu 12.04</span></p>
+<p>第一步：<br/>
+<br/>安装ruby1.9.1-dev:<br/>
+<code>$ sudo apt-get install ruby1.9.1-dev</code>
+Red Hat / CentOS / Fedora systems 需要使用如下命令:<br/>
+<code>$ sudo yum install ruby-devel</code>
+安装jekyll:<br/>
+<code>$ sudo gem install jekyll</code>
 
-<h3>Contact Me</h3>
-<ul>
-    <li><a href=""><i class="icon-globe"></i>QQ:729449623</a></li>
-    <li><a href="https://github.com/pjf000"><i class="icon-github"></i> GitHub</a></li>
-    <li><a href=""><i class="icon-envelope"></i>email:pjf.sysu@gmail.com</a></li>
-    <li><i class="icon-star"></i>微博:</li>
-    <iframe width="640" height="450" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=240&height=450&fansRow=1&ptype=1&speed=100&skin=2&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=1801501753&verifier=985d08b5&dpc=1"></iframe>
-</ul>
-</article>
+</p>
+<pre>
+第二步：
+
+安装RDiscount（一种模板）:
+$ sudo gem install rdiscount
+
+安装Pygments语法高亮(可选):
+On Ubuntu and Debian:
+
+$ sudo apt-get install python-pygments
+
+On OS X Leopard, Snow Leopard
+
+$ sudo easy_install Pygments
+
+Alternatively on OS X with MacPorts:
+
+$ sudo port install python25 py25-pygments
+
+On Archlinux
+
+$ sudo pacman -S python-pygments
+
+On Fedora and CentOS:
+
+$ sudo yum install python-pygments
+</pre>
+<pre>
+第三步：
+提示：在搭建本地调试环境之前，请确保已经有了github帐号，并创建一个代码库repository,
+然后超级终端里新建一个目录，
+$jekyll new [你的目录路径]  //打开目录你会发现有几个自动生成的文件
+$jekyll serve  
+// 成功的话会有如下提示，浏览器打开“0.0.0.0:4000”就可已看到本地生成的网页了
+//      Generating... done.
+//   Server address: http://0.0.0.0:4000
+// Server running... press ctrl-c to stop.
+
+到此，环境配置结束。
+
+当你编辑好代码之后想上传到github，那么：
+进入项目目录输入以下命令：
+$git init   //初始化git工程
+$git checkout --orphan gh-pages //建一个gh-pages分支：
+$git add .
+$git commit -m "v1.0"
+$git remote add https://username[你的github用户名]@github.com/username/your_repository[代码库名称]
+$git push
+输入密码，ok！打开http://username.gihub.com/your_repository 就可以看到你的博客了
+
+写的罗嗦，有不对之处敬请指教交流。
+</pre>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://localhost:4000/2014/01/02/meta%E4%B9%8Bviewpoint%E7%94%A8%E6%B3%95.html" rel="bookmark">meta之viewpoint用法</a>
+        
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>  
+
 
         <footer id="foot">
             <p>Copyright © 2013-2014 Jeff Peng All rights reserved.Design by <a href="http://www.pizn.net" target="_blank" title="the One theme author">PIZn</a></p>

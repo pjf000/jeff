@@ -3,7 +3,7 @@ pygments:         true
 paginate:         4
 
 title:            Jeff Peng
-url:              http://www.pengjf.com
+url:              http://localhost:4000
 feed:             /atom.xml
 author:
     name:         Jeff
@@ -12,11 +12,10 @@ author:
 
 about:            "I am Jeff. This is my blog"
 follow:
-    email:        pjf.sysu@gmail.com
+    email:         #
     github:       https://github.com/pjf000
-    twitter:      http://www.twitter.com
+    weibo:        http://www.weibo.com/pjf911
     google:       https://plus.google.com/
-    facebook:     http://facebook.com/
 description:      Jeff's blog, designed base on jekyll+github  
 
 indexContent:     true

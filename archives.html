@@ -11,11 +11,11 @@ date: All posts is here.
                         {% capture post_year2 %}{{ post.date | date: '%Y' }}{% endcapture %}
                         {% if post_year1 != post_year2 %}
                             {% assign post_year1 = post_year2 %}
-                            </ul>
+            </ul>
                             <h3>{{ post_year1 }}</h3>
                             <ul>
                             {% endif %}
-                            <li><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
+                            <li><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>&nbsp;&nbsp;&nbsp;&nbsp;{{post.date | date_to_string}}</li>
             {% endfor %}
             </ul>
 </article>

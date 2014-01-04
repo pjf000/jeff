@@ -1,17 +1,25 @@
 ---
 layout: default
-title: Contact
-date: Contact Me.
+title: About me
+date: About me
 ---
 <article class="post">
-<h3>About Me</h3>
-<img src="{{ site.imageLink }}" />
-<p>{{ site.about }}</p>
+<div class="self_intr">
+	<p>
+    hello，my name is Jeff Peng. I do web programming base on LAMP 
+    and I enjoy it. Welcome to share all about web programming with
+    each other.
+     </p>
+     <p>{{ site.about }}</p>
+</div>
+<div class="my-header-img"><img src="http://ww2.sinaimg.cn/small/6b60bc39jw9e022err57tj.jpg" width="120px" height="120px;"></div>
+
 <h3>Contact Me</h3>
 <ul>
-    <li><a href="{{ site.follow.twitter }}"><i class="icon-twitter"></i> Twitter</a></li>
+    <li><a href="{{ site.follow.QQ }}"><i class="icon-globe"></i>QQ:729449623</a></li>
     <li><a href="{{ site.follow.github }}"><i class="icon-github"></i> GitHub</a></li>
-    <li><a href="{{ site.follow.google }}"><i class="icon-google-plus-sign"></i> Google</a></li>
-    <li><a href="{{ site.follow.facebook }}"><i class="icon-facebook-sign"></i> Facebook</a></li>
+    <li><a href="{{ site.follow.email }}"><i class="icon-envelope"></i>email:pjf.sysu@gmail.com</a></li>
+    <li><i class="icon-star"></i>微博:</li>
+    <iframe width="640" height="450" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=240&height=450&fansRow=1&ptype=1&speed=100&skin=2&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=1801501753&verifier=985d08b5&dpc=1"></iframe>
 </ul>
 </article>
