@@ -1,6 +1,6 @@
 markdown:         rdiscount
 pygments:         true
-paginate:          4
+paginate:          5
 
 title:            Jeff Peng
 url:              http://www.pengjf.com
@@ -16,10 +16,9 @@ follow:
     github:       https://github.com/pjf000
     weibo:        http://www.weibo.com/pjf911
     google:       https://plus.google.com/
-description:      Jeff's blog, designed base on jekyll+github  
+description:      Jeff's blog, designed base on jekyll+github
 
 indexContent:     true
-imageLink:        http://www.pizn.net/static/images/20121109Monutain.jpg
 
 
 style:            /css/style.css
@@ -28,7 +27,7 @@ blogDesc:         Enjoy it
 favicon:          /images/shortcut.gif
 theme:            default
 
-disqus:           Jeffblog
+disqus:           jeffblog
 
 copyright:        Copyright © 2013-2014 Jeff Peng.
 test:             ok

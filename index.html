@@ -44,7 +44,9 @@ date: Home
             
             for(var i=0;i<pt.length;i++){
 				if(scrollTop<pt[0].top){
-				     el[0].className="setrel";
+					for(var j=0;j<el.length;j++){
+						el[j].className="setrel";
+					};
 				}
 				else if(i==0 && scrollTop>=pt[0].top && scrollTop<pt[1].top-80){
 						    	 el[0].className="setfixed";
@@ -60,7 +62,8 @@ date: Home
                                  el[i].className="setfixed";
 								 el[i+1].className="setrel";
 				} 
-				else{}
+				else{
+				}
 		    }
 		}
             
