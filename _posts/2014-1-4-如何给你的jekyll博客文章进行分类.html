@@ -1,0 +1,38 @@
+---
+layout: post
+title: 如何给你的jekyll博客文章进行分类
+description: 不用多说，对文章分类（category）是写博客必须做的一项工作。本文介绍一种及其简单的分类方法
+tags: [blog, jekyll]
+index: ab
+---
+首先在你的文章头部加上标签或分类选项tags：
+<pre>
+---
+layout: post
+title: 如何在jekyll博客对文章进行分类
+tags: blog
+---
+</pre>
+<br/>
+如果你的文章属于多个分类可以将tags写成如下：<br/>
+<code>
+tags: [blog, jekyll]
+</code>
+<br/>
+然后在你分类页面tags.html加上下面代码就可以了：
+<br/>
+ 因为大括号加百分号会被jekyll编译，因此用{/%代替，使用是请自行改回来。	
+<code>
+{/% for tag in site.tags %/}
+  <h2 id="{{ tag[0] }}">{/{ tag[0] }/}</h2>
+  <ul>
+    {/% for post in tag[1] %/}
+      <li style="padding: 2px">
+        <span>{/{ post.date | date:"%d %b %Y" }/}</span>
+        <a href="{{ post.url }}">{/{ post.title }/}</a>
+      </li>
+    {/% endfor %/}
+  </ul>
+{/% endfor %/}
+</code><br/>
+怎么样，很简单吧，试一下吧。

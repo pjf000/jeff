@@ -4,7 +4,7 @@ date: Home
 ---
 {% for rpost in paginator.posts %}
 	<article class="post fn-clear">
-        <h2 class="post-title"><a href="{{ site.url }}{{ rpost.url }}" title="{{ rpost.title }}" rel="bookmark">{{ rpost.title }}</a></h2>
+        <h2 name="pt"class="setrel"><a href="{{ site.url }}{{ rpost.url }}" title="{{ rpost.title }}" rel="bookmark">{{ rpost.title }}</a></h2>
         <p class="time"><time pubdate="{{ rpost.date }}">{{ rpost.date | date_to_string }}</time></p>
         {% if site.indexContent == true %}
         {{ rpost.content }}
@@ -27,4 +27,88 @@ date: Home
             <li>页</li>
         </ul>
     </nav>
-{% endif %}	
+{% endif %}
+<script>
+  //******************************滑动定位 end **********************  
+   scrollBind();
+/******************************滑动定位 start **********************/
+//滑动定位
+	var pt=getCoords('pt');
+    function scrollBind(){
+		var el=Fname('pt');
+		//绑定滚动事件
+        function dynamic_set_header(){
+            
+            var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            //获得标题标签数组
+            
+            for(var i=0;i<pt.length;i++){
+				if(scrollTop<pt[0].top){
+				     el[0].className="setrel";
+				}
+				else if(i==0 && scrollTop>=pt[0].top && scrollTop<pt[1].top-80){
+						    	 el[0].className="setfixed";
+								 el[1].className="setrel";
+				}
+				else if(i==pt.length-1 && scrollTop>=pt[i].top)
+				{
+								el[i].className="setfixed";
+								el[i-1].className="setrel";
+			    }
+			    else if(scrollTop>=pt[i].top-pt[i].offsetHeight && scrollTop<pt[i+1].top-80){
+                                 el[i-1].className="setrel";
+                                 el[i].className="setfixed";
+								 el[i+1].className="setrel";
+				} 
+				else{}
+		    }
+		}
+            
+        
+			//非IE浏览器下
+			if(document.addEventListener) {
+				window.addEventListener("load",dynamic_set_header,true);
+				//window.addEventListener("resize",dynamic_set_header,true);
+				window.addEventListener("scroll",dynamic_set_header,true);
+			}
+			
+			if(document.attachEvent&&window.ActiveXObject) {
+				
+				window.attachEvent("onload",dynamic_set_header);
+				//window.attachEvent("onresize",dynamic_set_header);
+				window.attachEvent("onscroll",dynamic_set_header);
+			}
+    }
+
+/*公共函数*/
+
+/*
+获取元素到页面顶端的距离(出自jquery源码)
+原理：
+*/
+function getCoords(name){
+    
+  if(typeof name == 'string')
+  {
+    el = Fname(name);
+  }
+  for(var i=0;i<el.length;i++){
+	  var box = el[i].getBoundingClientRect();
+	  doc = el[i].ownerDocument;
+	  body = doc.body;
+	  html = doc.documentElement;
+	  el[i].clientTop = html.clientTop || body.clientTop || 0;
+	  el[i].clientLeft = html.clientLeft || body.clientLeft || 0;
+	  el[i].top  = box.top  + (self.pageYOffset || html.scrollTop  ||  body.scrollTop ) - el[i].clientTop;
+	  el[i].bottom  = box.top  + (self.pageYOffset || html.scrollTop  ||  body.scrollTop ) + el[i].clientTop;
+	  el[i].left = box.left + (self.pageXOffset || html.scrollLeft ||  body.scrollLeft) - el[i].clientLeft;
+  };
+  return el;
+}
+
+function Fname(name)
+{
+    return document.getElementsByName(name);    
+}
+
+</script>	

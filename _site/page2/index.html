@@ -20,7 +20,7 @@
     <meta name="description" content="" />
     <link rel="stylesheet" href="http://localhost:4000/css/style.css" type="text/css" />
     <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
-    <link rel="shortcut icon" href="http://localhost:4000/images/shortcut.gif" type="image/x-icon" />
+    <link rel="shortcut icon" href="http://localhost:4000/images/shortcut.gif" type="image/shortcut.gif" />
     <!--[if lt IE 9]>
     <script src="http://localhost:4000/js/html5.js" type="text/javascript"></script>
     <![endif]-->
@@ -49,7 +49,45 @@
         </header>
 		
 	<article class="post fn-clear">
-        <h2 class="post-title"><a href="http://localhost:4000/2012/11/13/hello-world.html" title="Jekyll Blog 主题 theOne 1.0" rel="bookmark">Jekyll Blog 主题 theOne 1.0</a></h2>
+        <h2 name="pt"class="setrel"><a href="http://localhost:4000/2013/12/28/helloworld.html" title="你好，世界" rel="bookmark">你好，世界</a></h2>
+        <p class="time"><time pubdate="Sat Dec 28 00:00:00 +0800 2013">28 Dec 2013</time></p>
+        
+        　　<p>我的第一篇文章!!</p>
+　　<p>28 Dec 2013</p>
+
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 name="pt"class="setrel"><a href="http://localhost:4000/2013/12/28/git_use.html" title="git常用的几个操作" rel="bookmark">git常用的几个操作</a></h2>
+        <p class="time"><time pubdate="Sat Dec 28 00:00:00 +0800 2013">28 Dec 2013</time></p>
+        
+             <p>&nbsp;&nbsp;&nbsp;&nbsp;今天晚上和下午都在学git操作，本来很简单，但我却搞了很久，（再一次发现自己愚本的本质 T_T）
+     1.那么，如何上传代码呢？
+     首先在修改了某些本地文件之后
+     git diff(这一步要不要呢？)
+     git add (把修改后的文件复制到缓存，也就是.git隐藏文件夹下)
+     git commit -m "版本标识或者版本号" （少了版本标示是没法上传到代码库的！！这个很关键，我一个晚上就错在这里）
+     接着
+     git push 就行了 
+     2.删除文件 (假设要删除根目录下的hello文件夹里面的全部文件)
+     git rm ./hello/* -r
+     然后
+     git commit -a -m “版本号”
+     再push就行了
+     git push
+     3.下载仓库代码到本地
+     git fetch origin [仓库分支a]
+     git merge origin/[本地分支b]
+     ok 
+      </p>
+      <p>28 Dec 2013</p>
+
+        
+    </article>
+
+	<article class="post fn-clear">
+        <h2 name="pt"class="setrel"><a href="http://localhost:4000/2012/11/13/hello-world.html" title="Jekyll Blog 主题 theOne 1.0" rel="bookmark">Jekyll Blog 主题 theOne 1.0</a></h2>
         <p class="time"><time pubdate="Tue Nov 13 00:00:00 +0800 2012">13 Nov 2012</time></p>
         
         <h3>"IMG"标签：</h3>
@@ -160,10 +198,94 @@
             <li>页</li>
         </ul>
     </nav>
-	
+
+<script>
+  //******************************滑动定位 end **********************  
+   scrollBind();
+/******************************滑动定位 start **********************/
+//滑动定位
+	var pt=getCoords('pt');
+    function scrollBind(){
+		var el=Fname('pt');
+		//绑定滚动事件
+        function dynamic_set_header(){
+            
+            var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            //获得标题标签数组
+            
+            for(var i=0;i<pt.length;i++){
+				if(scrollTop<pt[0].top){
+				     el[0].className="setrel";
+				}
+				else if(i==0 && scrollTop>=pt[0].top && scrollTop<pt[1].top-80){
+						    	 el[0].className="setfixed";
+								 el[1].className="setrel";
+				}
+				else if(i==pt.length-1 && scrollTop>=pt[i].top)
+				{
+								el[i].className="setfixed";
+								el[i-1].className="setrel";
+			    }
+			    else if(scrollTop>=pt[i].top-pt[i].offsetHeight && scrollTop<pt[i+1].top-80){
+                                 el[i-1].className="setrel";
+                                 el[i].className="setfixed";
+								 el[i+1].className="setrel";
+				} 
+				else{}
+		    }
+		}
+            
+        
+			//非IE浏览器下
+			if(document.addEventListener) {
+				window.addEventListener("load",dynamic_set_header,true);
+				//window.addEventListener("resize",dynamic_set_header,true);
+				window.addEventListener("scroll",dynamic_set_header,true);
+			}
+			
+			if(document.attachEvent&&window.ActiveXObject) {
+				
+				window.attachEvent("onload",dynamic_set_header);
+				//window.attachEvent("onresize",dynamic_set_header);
+				window.attachEvent("onscroll",dynamic_set_header);
+			}
+    }
+
+/*公共函数*/
+
+/*
+获取元素到页面顶端的距离(出自jquery源码)
+原理：
+*/
+function getCoords(name){
+    
+  if(typeof name == 'string')
+  {
+    el = Fname(name);
+  }
+  for(var i=0;i<el.length;i++){
+	  var box = el[i].getBoundingClientRect();
+	  doc = el[i].ownerDocument;
+	  body = doc.body;
+	  html = doc.documentElement;
+	  el[i].clientTop = html.clientTop || body.clientTop || 0;
+	  el[i].clientLeft = html.clientLeft || body.clientLeft || 0;
+	  el[i].top  = box.top  + (self.pageYOffset || html.scrollTop  ||  body.scrollTop ) - el[i].clientTop;
+	  el[i].bottom  = box.top  + (self.pageYOffset || html.scrollTop  ||  body.scrollTop ) + el[i].clientTop;
+	  el[i].left = box.left + (self.pageXOffset || html.scrollLeft ||  body.scrollLeft) - el[i].clientLeft;
+  };
+  return el;
+}
+
+function Fname(name)
+{
+    return document.getElementsByName(name);    
+}
+
+</script>	
 
         <footer id="foot">
-            <p>Copyright © 2013-2014 Jeff Peng All rights reserved.Design by <a href="http://www.pizn.net" target="_blank" title="the One theme author">PIZn</a></p>
+            <p>Copyright © 2013-2014 Jeff Peng.Initially design by <a href="http://www.pizn.net" target="_blank" title="the One theme author">Pizn</a></p>
         </footer>
     </section>
 </div>

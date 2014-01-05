@@ -1,9 +1,9 @@
 markdown:         rdiscount
 pygments:         true
-paginate:         4
+paginate:          4
 
 title:            Jeff Peng
-url:              http://localhost:4000
+url:              http://www.pengjf.com
 feed:             /atom.xml
 author:
     name:         Jeff
@@ -28,7 +28,7 @@ blogDesc:         Enjoy it
 favicon:          /images/shortcut.gif
 theme:            default
 
-disqus:           jeffblog
+disqus:           Jeffblog
 
-copyright:        Copyright © 2013-2014 Jeff Peng All rights reserved.
+copyright:        Copyright © 2013-2014 Jeff Peng.
 test:             ok

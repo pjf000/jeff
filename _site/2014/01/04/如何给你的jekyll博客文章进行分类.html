@@ -13,7 +13,7 @@
     **
     -->
     <meta charset="utf-8" />
-    <title>Archives | Jeff Peng</title>
+    <title>如何给你的jekyll博客文章进行分类 | Jeff Peng</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Jekyll" />
     <meta name="author" content="Jeff" />
@@ -45,56 +45,53 @@
     </header>
     <section id="contain">
         <header id="begin">
-            <span>All posts is here.</span>
+            <span>Sat Jan 04 00:00:00 +0800 2014</span>
         </header>
 		<article class="post">
-            <ul>
-            
-                        
-                        
-                            
-            </ul>
-                            <h3>2014</h3>
-                            <ul>
-                            
-                            <li><a href="http://localhost:4000/2014/01/05/%E4%B8%80%E4%B8%AA%E5%9C%A8%E9%A1%B6%E9%83%A8%E5%8A%A8%E6%80%81%E5%9B%BA%E5%AE%9A%E5%AF%BC%E8%88%AA%E6%A0%8F%E6%88%96%E6%A0%87%E9%A2%98%E7%9A%84%E6%96%B9%E6%A1%88.html" title="一个在顶部动态固定导航栏或标题的方案">一个在顶部动态固定导航栏或标题的方案</a>&nbsp;&nbsp;&nbsp;&nbsp;05 Jan 2014</li>
-            
-                        
-                        
-                            <li><a href="http://localhost:4000/2014/01/04/%E5%A6%82%E4%BD%95%E7%BB%99%E4%BD%A0%E7%9A%84jekyll%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E8%BF%9B%E8%A1%8C%E5%88%86%E7%B1%BB.html" title="如何给你的jekyll博客文章进行分类">如何给你的jekyll博客文章进行分类</a>&nbsp;&nbsp;&nbsp;&nbsp;04 Jan 2014</li>
-            
-                        
-                        
-                            <li><a href="http://localhost:4000/2014/01/03/ubuntu%E4%B8%8A%E6%90%AD%E5%BB%BAjekyll%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83.html" title="ubuntu上搭建jekyll本地调试环境">ubuntu上搭建jekyll本地调试环境</a>&nbsp;&nbsp;&nbsp;&nbsp;03 Jan 2014</li>
-            
-                        
-                        
-                            <li><a href="http://localhost:4000/2014/01/02/meta%E4%B9%8Bviewpoint%E7%94%A8%E6%B3%95.html" title="meta之viewpoint用法">meta之viewpoint用法</a>&nbsp;&nbsp;&nbsp;&nbsp;02 Jan 2014</li>
-            
-                        
-                        
-                            
-            </ul>
-                            <h3>2013</h3>
-                            <ul>
-                            
-                            <li><a href="http://localhost:4000/2013/12/28/helloworld.html" title="你好，世界">你好，世界</a>&nbsp;&nbsp;&nbsp;&nbsp;28 Dec 2013</li>
-            
-                        
-                        
-                            <li><a href="http://localhost:4000/2013/12/28/git_use.html" title="git常用的几个操作">git常用的几个操作</a>&nbsp;&nbsp;&nbsp;&nbsp;28 Dec 2013</li>
-            
-                        
-                        
-                            
-            </ul>
-                            <h3>2012</h3>
-                            <ul>
-                            
-                            <li><a href="http://localhost:4000/2012/11/13/hello-world.html" title="Jekyll Blog 主题 theOne 1.0">Jekyll Blog 主题 theOne 1.0</a>&nbsp;&nbsp;&nbsp;&nbsp;13 Nov 2012</li>
-            
-            </ul>
-</article>
+    <h1 class="post-title">如何给你的jekyll博客文章进行分类</h1>
+    首先在你的文章头部加上标签或分类选项tags：
+<pre>
+---
+layout: post
+title: 如何在jekyll博客对文章进行分类
+tags: blog
+---
+</pre>
+<br/>
+如果你的文章属于多个分类可以将tags写成如下：<br/>
+<code>
+tags: [blog, jekyll]
+</code>
+<br/>
+然后在你分类页面tags.html加上下面代码就可以了：
+<br/>
+ 因为大括号加百分号会被jekyll编译，因此用{/%代替，使用是请自行改回来。	
+<code>
+{/% for tag in site.tags %/}
+  <h2 id="">{/{ tag[0] }/}</h2>
+  <ul>
+    {/% for post in tag[1] %/}
+      <li style="padding: 2px">
+        <span>{/{ post.date | date:"%d %b %Y" }/}</span>
+        <a href="">{/{ post.title }/}</a>
+      </li>
+    {/% endfor %/}
+  </ul>
+{/% endfor %/}
+</code><br/>
+怎么样，很简单吧，试一下吧。
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://localhost:4000/2014/01/03/ubuntu%E4%B8%8A%E6%90%AD%E5%BB%BAjekyll%E6%9C%AC%E5%9C%B0%E8%B0%83%E8%AF%95%E7%8E%AF%E5%A2%83.html" rel="bookmark">ubuntu上搭建jekyll本地调试环境</a>
+        
+        
+        <a class="next" href="http://localhost:4000/2014/01/05/%E4%B8%80%E4%B8%AA%E5%9C%A8%E9%A1%B6%E9%83%A8%E5%8A%A8%E6%80%81%E5%9B%BA%E5%AE%9A%E5%AF%BC%E8%88%AA%E6%A0%8F%E6%88%96%E6%A0%87%E9%A2%98%E7%9A%84%E6%96%B9%E6%A1%88.html" rel="bookmark">一个在顶部动态固定导航栏或标题的方案</a>
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>  
+
 
         <footer id="foot">
             <p>Copyright © 2013-2014 Jeff Peng.Initially design by <a href="http://www.pizn.net" target="_blank" title="the One theme author">Pizn</a></p>

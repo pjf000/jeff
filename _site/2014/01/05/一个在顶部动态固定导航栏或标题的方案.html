@@ -1,0 +1,121 @@
+<p>&nbsp;&nbsp;&nbsp;&nbsp;“动态”又“固定”看起来很矛盾，事实上有时候，我们希望滚轮滑动时，多个导航栏或者标题能够自动切换并固定在网页顶部。
+比如网页上展示了很多篇文章，我们希望看到那篇文章的时候就将其标题固定到顶部，看下一篇文章的时候固定的标题变为下一篇文章的标题了。
+下面我就讲一下自己设计的一个方案，firefox，chrome测试完美通过。
+</p>
+<pre>
+首先，网页布局大概是这样的：
+< html >
+---------------
+网页头部
+---------------
+< h2 name=“name” class=“rel”>文章标题1</ h2>
+文章内容
+文章内容
+——--------------
+< h2 name=“name” class=“rel”>文章标题2</ h2>
+文章内容
+——-------------
+< h2 name=“name” class=“rel”>文章标题3</ h2>
+文章内容
+——--------------
+   *
+   *
+   *
+< html >
+相关css代码:
+.rel{
+position:relative;
+z-Index:101;
+}
+.fixed{
+position:fixed;
+top:0px;
+z-Index:100;
+}
+
+    然后当滑动滚轮到第一篇文章标题接触到网页顶端时，如何让他固定，第二篇文章标题滑动到窗口顶端时，又如何让
+上一个标题消失并固定第二个标题呢？ 其实挺简单的，也就是将< h2 >标签的class切换成fixed就行了。下面是js代码：
+
+//************************************公共函数**********************************************//
+//获取所有的h2标签形成一个数组
+function Fname(name)
+{
+    return document.getElementsByName(name);    
+}
+//获取元素到页面顶端的距离
+function getCoords(name){
+  if(typeof name == 'string')
+  {
+    el = Fname(name);
+  }
+  for(var i=0;i(本括号里是小于号，请自行改回来，下类似)el.length;i++){
+	  var box = el[i].getBoundingClientRect();
+	  doc = el[i].ownerDocument;
+	  body = doc.body;
+	  html = doc.documentElement;
+	  el[i].clientTop = html.clientTop || body.clientTop || 0;
+	  el[i].clientLeft = html.clientLeft || body.clientLeft || 0;
+	  el[i].top = box.top+(self.pageYOffset || html.scrollTop||body.scrollTop )-el[i].clientTop;
+	  el[i].bottom = box.top +(self.pageYOffset || html.scrollTop||body.scrollTop )+el[i].clientTop;
+	  el[i].left = box.left+(self.pageXOffset || html.scrollLeft||body.scrollLeft)-el[i].clientLeft;
+  };
+  return el;
+}
+/***********************************************滑动定位 *****************************************/
+var pt=getCoords('pt');
+//监听scroll事件
+function scrollBind(){
+	var el=Fname('pt');
+		//绑定滚动事件
+   function dynamic_set_header(){
+   var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+    //获得标题标签数组
+   for(var i=0;i小于pt.length;i++){
+		if(scrollTop小于pt[0].top){
+				     el[0].className="setrel";
+				}
+	   else if(i==0 && scrollTop>=pt[0].top && scrollTop小于pt[1].top-pt[1].offsetHeight){
+				el[0].className="setfixed";
+				el[1].className="setrel";
+		}
+		else if(i==pt.length-1 && scrollTop>=pt[i].top)
+				{
+				el[i].className="setfixed";
+				el[i-1].className="setrel";
+		}
+		else if(scrollTop>=pt[i].top+pt[i].offsetHeight && scrollTop小于pt[i+1].top-pt[i+1].offsetHeight){
+              el[i-1].className="setrel";
+              el[i].className="setfixed";
+				el[i+1].className="setrel";
+		} 
+		else{}
+	 }
+   }
+	//非IE浏览器下
+	if(document.addEventListener) {
+		window.addEventListener("load",dynamic_set_header,true);
+		window.addEventListener("scroll",dynamic_set_header,true);
+	}		
+	if(document.attachEvent 与 window.ActiveXObject) {
+				
+		window.attachEvent("onload",dynamic_set_header);
+		window.attachEvent("onscroll",dynamic_set_header);
+	}
+}
+//************************************************************************************************
+</pre>
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+好的，再回到html模板文件末端调用<br/>
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+scrollBind();<br/>
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+（完）
