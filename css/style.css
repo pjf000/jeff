@@ -393,7 +393,7 @@ display: block;
 border-bottom: 1px solid #CCC;
 font-size: 36px;
 text-shadow: -1px 1px 1px #D8D8D8;
-background:#737373 url(images/bg_line1.png) repeat;
+background:#737373 url(/images/bg_line1.png) repeat-x bottom;
 border: 2px solid #CFCFCF;
 }
 #foot { padding: 10px 0 10px 40px; color: #D8D8D8;}
@@ -445,10 +445,11 @@ h1, h2, h3, h4, h5, h6{ font-weight: 500; color:#333; }
 .post .setrel {
 position:relative;
 margin-bottom: 10px;
+margin-left:-40px;
 padding: 4px 0 4px 40px;
 border-top: 1px solid #E8E8E8;
 border-bottom: 1px solid #D1D1D1;
-background:#969696 url(images/bg_line2.png) repeat;
+background:#969696 url(/images/bg_line2.png) repeat;
 z-index:101;
 }
 .post .setfixed {
@@ -459,7 +460,7 @@ margin-bottom: 10px;
 padding: 4px 0 4px 40px;
 border-top: 1px solid #E8E8E8;
 border-bottom: 1px solid #D1D1D1;
-background:#969696 url(images/bg_line2.png) repeat;
+background:#969696 url(/images/bg_line2.png) repeat;
 z-index:100;
 }
 .post .post-title a { border-bottom: none; }
