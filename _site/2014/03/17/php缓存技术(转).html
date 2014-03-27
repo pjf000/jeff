@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wb="http://open.weibo.com/wb" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!--
+    **
+    *
+    * Author:         PIZn
+    * Contact:        pizner@gmail.com
+    * Theme Name:     theOne
+    * Version:        1.0
+    * Date:			  2012.11.11
+    *
+    **
+    -->
+    <meta charset="utf-8" />
+    <title>PHP缓存技术（转） | Jeff Peng</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="Jeff" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://192.168.1.3:4000/css/style.css" type="text/css" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://192.168.1.3:4000/images/shortcut.gif" type="image/shortcut.gif" />
+    <!--[if lt IE 9]>
+    <script src="http://192.168.1.3:4000/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+        <script charset="utf-8" type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js"></script>
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <h1>Jeff</h1>
+            <h2>Enjoy it</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://192.168.1.3:4000" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://192.168.1.3:4000/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://192.168.1.3:4000/category.html"><i class="icon-sort"></i> Category</a></li>
+                <li class="fn-clear"><a href="http://192.168.1.3:4000/contact.html"><i class="icon-envelope-alt"></i>About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <span>Mon Mar 17 00:00:00 +0800 2014</span>
+        </header>
+		<article class="post">
+    <h1 class="setrel">PHP缓存技术（转）</h1>
+    <pre>
+  在WEB开发中用来应付高流量最有效的办法就是用缓存技术，能有效的提高服务器负载性能，
+用空间换取时间缓存是指临时文件交换区，电脑把最常用的文件从存储器里提出来临时放在缓
+存里，就像把工具和材料搬上工作台一样，这样会比用时现去仓库取更方便。因为缓存往往使
+用的是RAM（断电即掉的非永久储存），所以在忙完后还是会把文件送到硬盘等存储器里永久
+存储。电脑里最大的缓存就是内存条了，最快的是CPU上镶的L1和L2缓存，显卡的显存是给
+GPU用的缓存，硬盘上也有16M或者32M的缓存。千万不能把缓存理解成一个东西，它是一种处
+理方式的统称！
+    在WEB开发中用来应付高流量最有效的办法就是用缓存技术，能有效的提高服务器负载性
+能，用空间换取时间。
+    互联网也是2 8定论，就像百度搜索中的关键字一样，80%的人所搜索的肯定就是 20%的
+内容，所以只需要把这 20%的关键字的内容绶存好就可以很有效的在数十亿的记录中快速的返
+回给用户需要的内容。
+    这编文章我们来看一下在PHP WEB开发中常用的一些绶存手段。
+    
+    <strong>１、普遍缓存技术：</strong>
+    数据缓存：这里所说的数据缓存是指数据库查询PHP缓存机制，每次访问页面的时候,都
+会先检测相应的缓存数据是否存在，如果不存在，就连接数据库，得到数据，并把查询结果序
+列化后保存到文件中，以后同样的查询结果就直接从缓存表或文件中获得。
+
+    用的最广的例子看Discuz的搜索功能，把结果ID缓存到一个表中，下次搜索相同关键字
+时先搜索缓存表。
+    举个常用的方法，多表关联的时候，把附表中的内容生成数组保存到主表的一个字段中，
+需要的时候数组分解一下，这样的好处是只读一个表，坏处就是两个数据同步会多不少步骤，
+数据库永远是瓶颈，用硬盘换速度，是这个的关键点。 
+
+    <strong>２、 页面缓存：</strong>
+    每次访问页面的时候，都会先检测相应的缓存页面文件是否存在，如果不存在，就连接数
+据库，得到数据，显示页面并同时生成缓存页面文件，这样下次访问的时候页面文件就发挥作
+用了。(模板引擎和网上常见的一些PHP缓存机制类通常有此功能) 
+
+    <strong>３、 时间触发缓存： </strong>
+    检查文件是否存在并且时间戳小于设置的过期时间,如果文件修改的时间戳比当前时间戳
+减去过期时间戳大，那么就用缓存，否则更新缓存。 
+
+    <strong>４、 内容触发缓存： </strong>
+     当插入数据或更新数据时，强制更新PHP缓存机制。 
+     
+    <strong>５、 静态缓存： </strong>
+    这里所说的静态缓存是指静态化，直接生成HTML或XML等文本文件，有更新的时候重生成
+一次，适合于不太变化的页面，这就不说了。
+
+    以上内容是代码级的解决方案，我直接CP别的框架，也懒得改，内容都差不多，很容易就
+做到，而且会几种方式一起用，但下面的内容是服务器端的缓存方案，非代码级的，要有多方的
+合作才能做到  
+     
+     <strong>６、 内存缓存:  </strong>
+     Memcached是高性能的，分布式的内存对象PHP缓存机制系统，用于在动态应用中减少
+数据库负载，提升访问速度。 
+
+     <strong>７、 php的缓冲器： </strong>
+     有eaccelerator， apc， phpa，xcache，这个这个就不说了吧，搜索一堆一堆的，
+自己看啦，知道有这玩意就OK.
+
+     <strong>８、 MYSQL缓存： </strong>
+     这也算非代码级的，经典的数据库就是用的这种方式，看下面的运行时间，0.09xxx之类的 
+     
+     <strong>９、 基于反向代理的Web缓存:  </strong>
+     如Nginx，SQUID，mod_proxy(apache2以上又分为mod_proxy和mod_cache) 
+     
+     <strong>１０、 DNS轮询：  </strong>
+     BIND是一款开放源码的DNS服务器软件，这个要说起来就大了，自己搜索去，大家知道有
+这个东西就行了。
+　　  我知道的有chinacache等大站就是这样做的，说简单点就是多服务器啦，把同一个页面
+或文件缓存到不同的服务器上，按南北自动解析到相关的服务器中。
+     为什么要使用缓存技术？理由很简单：提高效率。在程序开发中，获取信息的方式主要是查
+询数据库，除此以外，也可能是通过Web Services或者别的某种方法，无论哪种方法，在大量
+的并发访问面前，它们都可能成为效率的瓶颈，为了解决这些问题，人们提出了很多解决方案，其
+中一些是利用优化软件（如：APC，Eaccelerator，Zend Optimizer等等）来提高程序的运
+行效率，合理的运用这些软件，往往能使程序的运行效率得到数量级上的提升，但前提是你必须拥
+主机的控制权，以便能够安装这些软件，如果你使用的是虚拟主机的话，那么只能祈祷你的服务提
+供商已经预装了某个优化软件，否则就必须自己使用PHP来实现相应的缓存功能。如果这让你感到
+无所适从，相信下面的文字能给你一些启发。 
+     
+    很多PHP程序员都使用Adodb+Smarty这样的黄金搭档，那么就先看看如何使用它们的缓存
+功能。 
+    首先看看adodb提供的数据缓存功能：(为防止jekyll编译下面的代码，我将php开头结尾的
+括符做了改动) 
+<%?php
+include('adodb.inc.php'); # load code common to ADOdb 
+$ADODB_CACHE_DIR = '/usr/ADODB_cache'; 
+$conn = &ADONewConnection('mysql');  # create a connection 
+$conn->PConnect('localhost','userid','','agora');# connect to MySQL
+$sql = 'select CustomerName, CustomerID from customers'; 
+$rs = $conn->CacheExecute(15,$sql); 
+?%> 
+    如上，每次查询数据的时候，会把相应的结果序列化后保存到文件中，以后同样的查询语句就
+可以不用直接查询数据库，而是从缓存文件中获得。 
+    再来看看Smarty提供的页面缓存功能： 
+    
+<%?php
+require('Smarty.class.php');
+$smarty = new Smarty;
+
+$smarty->caching = true;
+
+if(!$smarty->is_cached('index.tpl')) {
+    // No cache available, do variable assignments here.
+    $contents = get_database_contents();
+    $smarty->assign($contents);
+}
+$smarty->display('index.tpl');
+?%> 
+
+如上，每次访问页面的时候，都会先检测相应的缓存是否存在，如果不存在，就连接数据库，得到数
+据，完成模板变量的赋值，显示页面，同时生成缓存文件，这样下次访问的时候缓存文件就发挥作用
+了，而不会再执行if块的数据查询语句了。当然，在实际使用中会有很多东西要考虑，比如，有效期
+的设置，缓存组的设置等等，具体可以查看Smarty手册中有关缓存（caching）的相关章节。 
+    以上两个PHP流行组件缓存方式的侧重点是不同的，对于Adodb的缓存而言，它缓存的是数据，
+对于Smarty的缓存而言，它缓存的是页面。其他提供缓存功能的组件还有很多（如：PEAR::
+Cache_Lite等等），实际编程中使用哪个方案要具体情况具体分析，也可能会综合使用。 使用这
+些组件内置的缓存方案有一个很明显的好处是它们的实现对客户端而言都很透明。只要进行必要的设
+置（如：缓存时间，缓存目录等等）就可以了，而不用过多考虑实现缓存的细节问题，系统会根据设
+置自动管理缓存。但是其缺点也同样明显，因为每次请求仍然要用PHP解析一遍，效率和纯静态相比
+还是大打折扣，在大的PV面前还是不能满足要求，在这种情况下，仅仅做动态缓存就不够了，必须实
+现静态缓存。 
+</pre>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://192.168.1.3:4000/2014/03/11/%E6%80%BB%E7%BB%93%E4%BD%BF%E7%94%A8git%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D%E6%96%87%E4%BB%B6.html" rel="bookmark">总结使用git备份和恢复文件</a>
+        
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>  
+
+
+        <footer id="foot">
+            <p>Copyright © 2013-2014 Jeff Peng.Initially design by <a href="http://www.pizn.net" target="_blank" title="the One theme author">Pizn</a></p>
+        </footer>
+    </section>
+</div>
+<script src="http://192.168.1.3:4000/js/jquery.js" type="text/javascript"></script>
+<script src="http://192.168.1.3:4000/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://192.168.1.3:4000/js/theOne.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    /**
+     * disqus
+     */
+    var disqusId = $("#disqus_thread");
+    if(disqusId && typeof disqusId != "undefined" && disqusId.length != 0) {
+        var disqusName = "jeffblog";
+        var disqus_shortname = disqusName != "" ? disqusName : "piznblog";
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] ||
+                document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    }
+});
+</script>
+</body>
+</html>
+

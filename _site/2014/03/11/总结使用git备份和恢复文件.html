@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:wb="http://open.weibo.com/wb" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!--
+    **
+    *
+    * Author:         PIZn
+    * Contact:        pizner@gmail.com
+    * Theme Name:     theOne
+    * Version:        1.0
+    * Date:			  2012.11.11
+    *
+    **
+    -->
+    <meta charset="utf-8" />
+    <title>总结使用git备份和恢复文件 | Jeff Peng</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Jekyll" />
+    <meta name="author" content="Jeff" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://192.168.1.3:4000/css/style.css" type="text/css" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <link rel="shortcut icon" href="http://192.168.1.3:4000/images/shortcut.gif" type="image/shortcut.gif" />
+    <!--[if lt IE 9]>
+    <script src="http://192.168.1.3:4000/js/html5.js" type="text/javascript"></script>
+    <![endif]-->
+        <script charset="utf-8" type="text/javascript" src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js"></script>
+</head>
+<body id="default">
+<div id="head-line"></div>
+<div id="content">
+    <header id="head">
+        <div id="logo">
+            <h1>Jeff</h1>
+            <h2>Enjoy it</h2>
+        </div>
+        <nav id="nav">
+            <ul>
+                <li class="fn-clear"><a href="http://192.168.1.3:4000" rel="nofollow" class="action"><i class="icon-home"></i> Home</a></li>
+                <li class="fn-clear"><a href="http://192.168.1.3:4000/archives.html"><i class="icon-list-ul"></i> Archives</a></li>
+                <li class="fn-clear"><a href="http://192.168.1.3:4000/category.html"><i class="icon-sort"></i> Category</a></li>
+                <li class="fn-clear"><a href="http://192.168.1.3:4000/contact.html"><i class="icon-envelope-alt"></i>About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="contain">
+        <header id="begin">
+            <span>Tue Mar 11 00:00:00 +0800 2014</span>
+        </header>
+		<article class="post">
+    <h1 class="setrel">总结使用git备份和恢复文件</h1>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;本人接触git有近4个月时间了，断断续续的用它上传又下载源码。
+因为是新手，毫无疑问，遇到过很多困惑。下面就讲述一下在使用git上传和恢复代码的时候遇到的问题。
+如果你是新手，不自觉喜欢手动删除本地源码，那么本文或许会对你有较大帮助，如果你是高手，不足指
+出多多请教，嘿嘿。
+</p>
+<pre>
+     如果你使用了git，那么你肯定有了github帐号，也在该网站上建立了代码库（我称之为“远程代码库”）。
+然后你会在本地创建一个目录存放代码（这些非隐藏的文件我称它们“本地代码库”）；当你在终端使用了“git init”
+命令之后就创建了一系列隐藏的文件，这些文件在使用命令“git commit..”之后就是本地代码的副本（我称它
+为“中转代码库”），之所以称它为“中转代码库”是因为，这些隐藏的代码充当“本地代码库”和“远程代码库”之间的
+桥梁，“本地代码库”并不能直接与“远程代码库”进行相互复制和替换。好了有了这三个概念之后，我就可以很简单的
+告诉大家这三者之间是如何工作的。
+<table>    
+<tr>
+	<th>文件传递方向</th>
+	<th>使用命令</th>
+</tr>
+<tr>
+<td>1.“本地代码库”=>“中转代码库”</td>
+<td>git add . + git commit</td>
+</tr>
+<tr>
+<td>2.“中转代码库”=>“远程代码库”</td>
+<td>git push</td> 
+</tr>
+<tr>
+<td>3.“远程代码库”=>“中转代码库”</td>
+<td>git fetch</td>
+</tr>
+<tr>
+<td>4.“中转代码库”=>“本地代码库”</td>
+<td>git stash</td>
+</tr>
+<tr>
+<td>5.“远程代码库”=>“本地代码库”</td>
+<td>git pull 或git fetch + git merge</td>
+</tr>
+<h4>注意：第5个情况不建议使用，特别是在协同开发的情况下，免得丢失他人已保存的数据。
+</h4>
+</table>
+</pre>
+
+    <nav class="pagination-link">
+        
+        <a class="prev" href="http://192.168.1.3:4000/2014/01/14/%E6%95%AC%E5%A4%A9%E7%88%B1%E4%BA%BA.html" rel="bookmark">敬天爱人</a>
+        
+        
+        <a class="next" href="http://192.168.1.3:4000/2014/03/17/php%E7%BC%93%E5%AD%98%E6%8A%80%E6%9C%AF%28%E8%BD%AC%29.html" rel="bookmark">PHP缓存技术（转）</a>
+        
+     </nav>
+     <div id="disqus_thread"></div>
+</article>  
+
+
+        <footer id="foot">
+            <p>Copyright © 2013-2014 Jeff Peng.Initially design by <a href="http://www.pizn.net" target="_blank" title="the One theme author">Pizn</a></p>
+        </footer>
+    </section>
+</div>
+<script src="http://192.168.1.3:4000/js/jquery.js" type="text/javascript"></script>
+<script src="http://192.168.1.3:4000/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://192.168.1.3:4000/js/theOne.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    /**
+     * disqus
+     */
+    var disqusId = $("#disqus_thread");
+    if(disqusId && typeof disqusId != "undefined" && disqusId.length != 0) {
+        var disqusName = "jeffblog";
+        var disqus_shortname = disqusName != "" ? disqusName : "piznblog";
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] ||
+                document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    }
+});
+</script>
+</body>
+</html>
+
