@@ -1,11 +1,11 @@
- ---
- layout: post
+---
+layout: post
 title: 如何动态写入文件到apk
 description: 有时候我们可能会希望用链接下载的apk可以根据链接的参数给apk一个“标记”，所谓标记就是要么修改apk名字要么在apk里写一些东西
 tags: [android, php]
- index: ab
- ---
- <pre>
+index: ab
+---
+<pre>
 ----
     有时候我们可能会遇到一些奇奇怪怪的需求，比如发一个邀请链接（包含你的id）给你的好友，你的好友通过这个链接下载安装包安装完后你的邀请人数就加1，这时候就希望用链接下载的apk可以根据链接的参数给apk一个“标记”，所谓标记就是
      1.要么修改apk名字
@@ -19,7 +19,7 @@ tags: [android, php]
 	4.输出给客户端
 	直接上代码吧：
 	<code>
- </pre>
+</pre>
 <?php
 // 获取get参数
 function get($key=''){
