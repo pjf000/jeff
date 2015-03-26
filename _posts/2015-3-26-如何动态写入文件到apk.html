@@ -1,0 +1,95 @@
+ ---
+ layout: post
+title: 如何动态写入文件到apk
+description: 有时候我们可能会希望用链接下载的apk可以根据链接的参数给apk一个“标记”，所谓标记就是要么修改apk名字要么在apk里写一些东西
+tags: [android, php]
+ index: ab
+ ---
+ <pre>
+----
+    有时候我们可能会遇到一些奇奇怪怪的需求，比如发一个邀请链接（包含你的id）给你的好友，你的好友通过这个链接下载安装包安装完后你的邀请人数就加1，这时候就希望用链接下载的apk可以根据链接的参数给apk一个“标记”，所谓标记就是
+     1.要么修改apk名字
+     2.要么在apk里写一些东西
+    第一种方案太low了，谁都看得出来。第二个方案看似可行，问题是apk是一个编译好的安装包，怎么往里写东西呢？写了东西会不会影响安装呢？
+
+	事实上，每个apk都是一个压缩包，把他后缀改成zip试试。我用的后台脚本语言是php，有现有的方法对一个zip进行一些操作，其他脚本语言也肯定会有，下面我就介绍下我的做法：
+	1.生成一个临时zip文件
+	2.读取apk安装包，添加到zip
+	3.根据get参数制作json文件，添加到zip
+	4.输出给客户端
+	直接上代码吧：
+	<code>
+ </pre>
+<?php
+// 获取get参数
+function get($key=''){
+    if(''==$key) return $_GET;
+    return isset($_GET[$key]) ? $_GET[$key] : null;
+}
+//源文件
+$apk        = "./invite.apk";
+//可将apk改成自定义的名字
+$apkname    = "new_name.apk";
+//写在apk内部的文件名，可自定义
+$ef         = 'META-INF/EXTENDS.JSON';
+$data       = array();
+//参数处理
+switch(get('action')){
+    // http://xxx.php?code=123456&action=invite
+    case 'invite':
+        // 获取验证码
+        $code                   = get('code');
+        $data['invite_code']    = $code;
+        // 获取文件名 
+        $apkname                = get('apk') ? get('apk').'.apk' : $apkname;
+        break;
+    default:
+	    //无参数，直接传源文件
+        header("Location: /{$apk}");
+        exit;
+        break;
+}
+// 生成临时文件
+$tmpfile    = tempnam("tmp", "zip");
+// 复制文件
+if(is_file($apk) && false===file_put_contents($tmpfile, file_get_contents($apk))){
+    header("HTTP/1.1 404 Not Found");  
+    header("Status: 404 Not Found");  
+    exit;  
+}
+// 打开临时文件
+$zip        = new ZipArchive();
+$zip->open($tmpfile); 
+// 添加文件
+$zip->addFromString($ef, json_encode($data));
+// 关闭zip
+$zip->close();
+// 下载文件
+// header("Content-Type: application/apk");
+header('Content-Type: application/vnd.android.package-archive');
+header("Content-Length: " . filesize($tmpfile)); 
+header("Content-Disposition: attachment; filename=\"{$apkname}\""); 
+// 输出二进制流
+readfile($tmpfile);
+// 删除临时文件
+unlink($tmpfile); 
+exit;
+?>
+ </code>
+
+
+值得注意的地方是
+<code>
+//header("Content-Type: application/apk");
+header('Content-Type: application/vnd.android.package-archive');</code>
+如果用
+ <code>
+header("Content-Type: application/apk");</code>
+来告诉浏览器接收到的文件是可安装apk，很多手机的自带浏览器是不识别的，会出现下载后点击显示“无法解析文件”等错误。
+用UC,QQ浏览器测试均没问题，这个问题困扰了我很久，一直以为是重写apk的时候把apk写坏了。
+后来才发现用
+<code>header('Content-Type: application/vnd.android.package-archive');</code>
+可以让普遍浏览器识别出下载的文件是安装包。
+
+app安装后获取 META-INF/EXTENDS.JSON 文件里的数据传给后台，整个流程就结束了。
+ok~！就这么多。
